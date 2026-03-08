@@ -1,0 +1,166 @@
+{
+    "name": "IG Comment Reply Automation",
+    "flow": [
+        {
+            "id": 1,
+            "module": "instagram-business:NewComment",
+            "version": 1,
+            "parameters": {
+                "__IMTHOOK__": 2511759
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": -118,
+                    "y": 2
+                },
+                "restore": {
+                    "parameters": {
+                        "__IMTHOOK__": {
+                            "data": {
+                                "editable": "false"
+                            },
+                            "label": "My New Events webhook"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTHOOK__",
+                        "type": "hook:instagram-business",
+                        "label": "Webhook",
+                        "required": true
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "field",
+                        "type": "text",
+                        "label": "Field"
+                    },
+                    {
+                        "name": "from",
+                        "spec": [
+                            {
+                                "name": "id",
+                                "type": "text",
+                                "label": "ID"
+                            },
+                            {
+                                "name": "username",
+                                "type": "text",
+                                "label": "Username"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "From"
+                    },
+                    {
+                        "name": "media",
+                        "spec": [
+                            {
+                                "name": "id",
+                                "type": "text",
+                                "label": "ID"
+                            },
+                            {
+                                "name": "media_product_type",
+                                "type": "text",
+                                "label": "Media Product Type"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Media"
+                    },
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "Comment ID"
+                    },
+                    {
+                        "name": "parent_id",
+                        "type": "text",
+                        "label": "Parent ID"
+                    },
+                    {
+                        "name": "text",
+                        "type": "text",
+                        "label": "Text"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "module": "instagram-business:CreateComment",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 5278226
+            },
+            "mapper": {
+                "id": "{{1.id}}",
+                "message": "@{{1.from.username}} Thank you ❤️"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "facebook"
+                            },
+                            "label": "My Facebook connection (Amara Zaman)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:facebook",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "Comment ID",
+                        "required": true
+                    },
+                    {
+                        "name": "message",
+                        "type": "text",
+                        "label": "Message",
+                        "required": true
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu1.make.com",
+        "notes": []
+    }
+}
